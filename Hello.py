@@ -52,6 +52,11 @@ else:
 
             img1 = np.array(images[0].convert('RGB'))
             img2 = np.array(images[1].convert('RGB'))
+            
+            if img1.shape[0] > 450:
+                new_height = int(img1.shape[1] *450 / img1.shape[0])
+                img1 = np.array(Image.fromarray(img1).resize((450, new_height)))
+            
             # Resize the second image to match the first image
             img2 = np.array(Image.fromarray(img2).resize(img1.shape[1::-1]))
             
@@ -69,6 +74,6 @@ else:
                 frames.append(Image.fromarray(combined))
 
             # Create the GIF
-            imageio.mimsave('comparison.gif', frames, 'GIF', duration=0.00001)
+            imageio.mimsave('comparison.gif', frames, 'GIF', loop=0, duration=30)
         st.success('GIF已生成, 可鼠标右键下载')
         st.image('comparison.gif')
