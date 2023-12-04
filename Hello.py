@@ -5,7 +5,7 @@ import numpy as np
 import imageio
 
 session_state = st.session_state
-
+st.set_page_config(page_title="Image Comparison")
 st.sidebar.title('Image Comparison')
 
 # Upload the images in the sidebar
@@ -21,9 +21,9 @@ label2 = st.sidebar.text_input('Label for the left image', value="After") if sho
 images = [Image.open(file) for file in uploaded_files]
 
 if len(images) < 2:
-    st.error('Please Upload Two Image Files')
+    st.error('Please upload two image files. Better with the same size')
 elif len(images) > 2:
-    st.error('Uploaded Image File Number Exceeds Two.')
+    st.error('Uploaded image number exceeds two. Modify on the left sidebar.')
 else:
     if 'swap' not in session_state:
         session_state.swap = False
