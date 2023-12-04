@@ -4,12 +4,9 @@ import streamlit_image_comparison as sic
 import numpy as np
 import imageio
 
-
-
 session_state = st.session_state
 
 st.sidebar.title('Image Comparison')
-
 
 # Upload the images in the sidebar
 uploaded_files = st.sidebar.file_uploader("Upload Two Image Files", type=["jpg", "png", "jpeg", "gif", "bmp"], accept_multiple_files=True)
@@ -18,8 +15,8 @@ uploaded_files = st.sidebar.file_uploader("Upload Two Image Files", type=["jpg",
 show_labels = st.sidebar.checkbox('Show labels', value=True)
 
 # Add text input in the sidebar for the labels
-label1 = st.sidebar.text_input('Label for the first image', value="Before") if show_labels else ""
-label2 = st.sidebar.text_input('Label for the second image', value="After") if show_labels else ""
+label1 = st.sidebar.text_input('Label for the left image', value="Before") if show_labels else ""
+label2 = st.sidebar.text_input('Label for the left image', value="After") if show_labels else ""
 
 images = [Image.open(file) for file in uploaded_files]
 
@@ -32,7 +29,7 @@ else:
         session_state.swap = False
 
     # Add a button to swap the images
-    if st.sidebar.button('Swap Images Positions'):
+    if st.sidebar.button('Swap Image Positions'):
         session_state.swap = not session_state.swap
 
     # Swap the images and labels if necessary
@@ -44,7 +41,6 @@ else:
     width = 700
     comparison_image = sic.image_comparison(images[0], images[1], label1, label2, width=width, starting_position=50)
     
-
     if  st.sidebar.button('Generate GIF'):
         # Create a list to store the frames of the GIF
         with st.spinner('GIF生成中...'):
